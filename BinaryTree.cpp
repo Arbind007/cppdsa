@@ -268,6 +268,59 @@ void sumreplace(Node *root)
     }
 }
 
+bool isbalance(Node *root)
+{
+    if (root == NULL)
+    {
+        return true;
+    }
+    if (isbalance(root->left) == false)
+    {
+        return false;
+    }
+    if (isbalance(root->right) == false)
+    {
+        return false;
+    }
+
+    int lh = calheight(root->left);
+    int rh = calheight(root->right);
+    if (abs(lh - rh) <= 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool isbalance2(Node *root, int *height)
+{
+    if (root == NULL)
+    {
+        return true;
+    }
+    int lh = 0, rh = 0;
+    if (isbalance2(root->left, &lh) == false)
+    {
+        return false;
+    }
+    if (isbalance2(root->right, &rh) == false)
+    {
+        return false;
+    }
+    *height = max(lh, rh) + 1;
+    if (abs(lh - rh) <= 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 int main()
 {
     struct Node *root = new Node(1);
@@ -277,12 +330,14 @@ int main()
     root->left->right = new Node(5);
     root->right->left = new Node(6);
     root->right->right = new Node(7);
-    preorder(root);
+    // preorder(root);
     // inorder(root);
     // postorder(root);
-    sumreplace(root);
-    cout << endl;
-    preorder(root);
+
+    // sumreplace(root);
+    // cout << endl;
+    // preorder(root);
+
     // int preorder[] = {1, 2, 4, 3, 5};
     // int postorder[] = {4, 2, 5, 3, 1};
     // int inorder[] = {4, 2, 1, 5, 3};
@@ -297,5 +352,8 @@ int main()
     // int height = 0;
     // cout << calcDiameter2(root, &height) << endl;
 
+    cout << isbalance(root) << endl;
+    int height = 0;
+    cout << isbalance2(root, &height) << endl;
     return 0;
 }

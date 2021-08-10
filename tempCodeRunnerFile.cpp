@@ -1,1 +1,1 @@
-int mid = (s + e) / 2;
+root->right = new Node(3);
