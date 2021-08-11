@@ -321,6 +321,73 @@ bool isbalance2(Node *root, int *height)
     }
 }
 
+void rightView(Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    queue<Node *> q;
+    q.push(root);
+
+    while (!q.empty())
+    {
+        int n = q.size();
+        for (int i = 0; i < n; i++)
+        {
+            Node *curr = q.front();
+            q.pop();
+
+            if (i == n - 1)
+            {
+                cout << curr->data << endl;
+            }
+            if (curr->left != NULL)
+            {
+                q.push(curr->left);
+            }
+            if (curr->right != NULL)
+            {
+                q.push(curr->right);
+            }
+        }
+    }
+}
+
+void leftView(Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    queue<Node *> q;
+    q.push(root);
+
+    while (!q.empty())
+    {
+        int n = q.size();
+        for (int i = 0; i < n; i++)
+        {
+            Node *curr = q.front();
+            q.pop();
+
+            if (i == 0)
+            {
+                cout << curr->data << endl;
+            }
+            if (curr->left != NULL)
+            {
+                q.push(curr->left);
+            }
+            if (curr->right != NULL)
+            {
+                q.push(curr->right);
+            }
+        }
+    }
+}
 int main()
 {
     struct Node *root = new Node(1);
@@ -352,8 +419,10 @@ int main()
     // int height = 0;
     // cout << calcDiameter2(root, &height) << endl;
 
-    cout << isbalance(root) << endl;
-    int height = 0;
-    cout << isbalance2(root, &height) << endl;
+    // cout << isbalance(root) << endl;
+    // int height = 0;
+    // cout << isbalance2(root, &height) << endl;
+
+    leftView(root);
     return 0;
 }
