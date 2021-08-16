@@ -447,13 +447,38 @@ int disBtwNodes(Node *root, int n1, int n2)
     return d1 + d2;
 }
 
+void flatten(Node *root)
+{
+    if (root == NULL || (root->left == NULL && root->right == NULL))
+    {
+        return;
+    }
+
+    if (root->left != NULL)
+    {
+        flatten(root->left);
+        Node *temp = root->right;
+        root->right = root->left;
+        root->left = NULL;
+        Node *t1 = root->right;
+
+        while (t1->right != NULL)
+        {
+            t1 = t1->right;
+        }
+        t1->right = temp;
+    }
+    flatten(root->right);
+}
+
 int main()
 {
-    struct Node *root = new Node(1);
-    root->left = new Node(2);
-    root->right = new Node(3);
-    root->left->left = new Node(4);
-    root->left->right = new Node(5);
+    struct Node *root = new Node(4);
+    root->left = new Node(9);
+    root->right = new Node(5);
+    root->left->left = new Node(1);
+    root->left->right = new Node(3);
+    root->right->right = new Node(6);
     // root->right->left = new Node(6);
     // root->right->right = new Node(7);
     // preorder(root);
@@ -484,6 +509,10 @@ int main()
 
     // leftView(root);
 
-    cout << disBtwNodes(root, 4, 5) << endl;
+    // cout << disBtwNodes(root, 4, 5) << endl;
+
+    flatten(root);
+    printinorder(root);
+
     return 0;
 }

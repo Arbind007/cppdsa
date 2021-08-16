@@ -1,1 +1,1 @@
-root->right = new Node(3);
+flatten(root);
