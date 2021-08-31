@@ -569,6 +569,31 @@ int LCA2(Node *root, int n1, int n2)
     return path1[pc - 1];
 }
 
+int maxPathSumUtil(Node *root, int &ans)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+
+    int left = maxPathSumUtil(root->left, ans);
+    int right = maxPathSumUtil(root->right, ans);
+
+    int nodeMax = max(max(root->data, root->data + right + left), max(root->data + left, root->data + right));
+
+    ans = max(ans, nodeMax);
+
+    int singlePathSum = max(root->data, max(root->data + left, root->data + right));
+    return singlePathSum;
+}
+
+int maxPathSum(Node *root)
+{
+    int ans = INT_MIN;
+    maxPathSumUtil(root, ans);
+    return ans;
+}
+
 int main()
 {
     struct Node *root = new Node(1);
@@ -576,9 +601,9 @@ int main()
     root->right = new Node(3);
     root->left->left = new Node(4);
     // root->left->right = new Node(3);
-    root->right->right = new Node(6);
-    root->right->left = new Node(5);
-    root->right->left->left = new Node(7);
+    root->right->right = new Node(5);
+    // root->right->left = new Node(5);
+    // root->right->left->left = new Node(7);
     // preorder(root);
     // inorder(root);
     // postorder(root);
@@ -618,18 +643,19 @@ int main()
     // root->left->left = new Node(4);
     // printNodeatK(root, root->left, 1);
 
-    int n1 = 7;
-    int n2 = 6;
-    Node *lca = LCA(root, n1, n2);
+    // int n1 = 7;
+    // int n2 = 6;
+    // Node *lca = LCA(root, n1, n2);
 
-    if (lca == NULL)
-    {
-        cout << "LCA does not exist" << endl;
-    }
-    else
-    {
-        cout << "LCA : " << lca->data << endl;
-    }
+    // if (lca == NULL)
+    // {
+    //     cout << "LCA does not exist" << endl;
+    // }
+    // else
+    // {
+    //     cout << "LCA : " << lca->data << endl;
+    // }
 
+    cout << maxPathSum(root) << endl;
     return 0;
 }

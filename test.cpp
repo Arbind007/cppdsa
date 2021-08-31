@@ -1,50 +1,35 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
-
-void twoSum(vector<int> &nums, int target)
-{
-    vector<int> ans;
-    sort(nums.begin(), nums.end());
-
-    int i = 0;
-    int j = nums.size() - 1;
-
-    while (j >= i)
-    {
-        int sum = nums[i] + nums[j];
-        if (sum == target)
-        {
-            break;
-        }
-        else if (sum > target)
-        {
-            j--;
-        }
-        else if (sum < target)
-        {
-            i++;
-        }
-    }
-    cout << i << " " << j << " " << endl;
-    // ans.insert(ans.begin(), i);
-    // ans.insert(ans.begin() + 1, j);
-    // return ans;
-}
 
 int main()
 {
-    vector<int> vtr;
-    for (int i = 0; i < 3; i++)
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
     {
+        vector<int> v;
+        int count = 1;
+        int sum = 0;
         int a;
         cin >> a;
-        vtr.insert(vtr.begin() + i, a);
+        while (a > 0)
+        {
+            if (a % 10 > 0)
+            {
+                v.push_back((a % 10) * count);
+                sum++;
+            }
+            a /= 10;
+            count *= 10;
+        }
+        cout << sum << endl;
+        for (int i = 0; i < v.size(); i++)
+        {
+            cout << v[i] << " ";
+        }
+        cout << endl;
     }
-    // vector<int> ans =
-    twoSum(vtr, 6);
-    // for (int i = 0; i < ans.size(); i++)
-    // {
-    //     cout << ans[i] << ' ';
-    // }
-    // return 0;
+
+    return 0;
 }
