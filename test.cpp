@@ -1,35 +1,51 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-int main()
-{
-    int n;
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        vector<int> v;
-        int count = 1;
-        int sum = 0;
-        int a;
-        cin >> a;
-        while (a > 0)
-        {
-            if (a % 10 > 0)
-            {
-                v.push_back((a % 10) * count);
-                sum++;
-            }
-            a /= 10;
-            count *= 10;
-        }
-        cout << sum << endl;
-        for (int i = 0; i < v.size(); i++)
-        {
-            cout << v[i] << " ";
-        }
-        cout << endl;
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    Node(int val){
+        data = val;
+        left = NULL;
+        right = NULL;
     }
+};
 
+Node* insertBST(Node* root,int val){
+    
+    if(root == NULL){
+        return new Node(val);
+    }
+    
+    if(root->data > val){
+        root->left = insertBST(root->left, val);
+    }
+    else{
+        root->right = insertBST(root->right, val);
+    }
+    
+    return root;
+}
+
+void inorder(Node* root){
+    if(root == NULL){
+        return;
+    }
+    inorder(root->left);
+    cout << root->data << endl;
+    inorder(root->right);
+}
+
+int main(){
+    Node* root = NULL;
+    root = insertBST(root,5);
+    insertBST(root,1);
+    insertBST(root,3);
+    insertBST(root,4);
+    insertBST(root,2);
+    insertBST(root,7);
+    
+    inorder(root);
     return 0;
 }
